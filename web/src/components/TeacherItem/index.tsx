@@ -4,48 +4,43 @@ import React from 'react';
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg';
 
 import './styles.css';
-import api from '../../services/api';
 
-export interface Teacher {
+export interface Prato {
   avatar: string;
   bio: string;
   cost: number;
   id: number;
   name: string;
-  subject: string;
+  category: string;
   whatsapp: string;
 }
 
-interface TeacherItemProps {
-  teacher: Teacher;
+interface PratoItemProps {
+  prato: Prato;
 }
 
- const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
-  function createNewConnection(){
-    api.post('connections', {
-      user_id: teacher.id
-    });
-  }
+ const TeacherItem: React.FC<PratoItemProps> = ({ prato }) => {
+
 
   return(
     <article className="teacher-item">
       <header>
-        <img src={teacher.avatar} alt={teacher.name}/>
+        <img src={prato.avatar} alt={prato.name}/>
         <div>
-          <strong>{teacher.name}</strong>
-          <span>{teacher.subject}</span>
+          <strong>{prato.name}</strong>
+          <span>{prato.category}</span>
         </div>
       </header>
 
       <p>
-        {teacher.bio}
+        {prato.bio}
       </p>
 
       <footer>
         <p>Preço/hora
-        <strong>R$ {teacher.cost}</strong>
+        <strong>R$ {prato.cost}</strong>
         </p>
-        <a target="_blank" onClick={createNewConnection} href={`https://wa.me/${teacher.whatsapp}?text=Olá! Gostaria de agendar a aula de ${teacher.subject}!`}>
+        <a target="_blank" href={`https://wa.me/${prato.whatsapp}?text=Olá! Gostaria de agendar o seguinte item ${prato.name}!`}>
           <img src={whatsappIcon} alt="WhatsApp"/>
           Entrar em contato
         </a>

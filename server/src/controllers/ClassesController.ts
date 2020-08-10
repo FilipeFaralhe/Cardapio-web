@@ -19,8 +19,7 @@ export default class ClassesController {
     const pratos = await db('prato')
       .where('prato.category', '=', category)
       .where('prato.cost', '=', cost)
-      .join('users', 'prato.user_id', '=', 'users.id')
-      .select(['users.*','prato.*',])
+      .select(['prato.*'])
 
     
     return res.json(pratos);
@@ -40,20 +39,16 @@ export default class ClassesController {
     const trx = await db.transaction();
   
     try {
-      const insertedUsersIds = await trx('users').insert({
-        nameRest,
-        whatsapp
-      });
     
-      const user_id = insertedUsersIds[0];
     
       await trx('prato').insert({
+        nameRest,
+        whatsapp,
         name,
         avatar,
         bio,
         category,
         cost,
-        user_id,
       });
 
       await trx.commit();

@@ -18,48 +18,36 @@ export default function TeacherForm(){
 
   const history = useHistory();
 
+  const [nameRest, setNameRest] = useState('');
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('');
   const [whatsapp, setWhatsapp] = useState('');
   const [bio, setBio] = useState('');
 
-  const [subject, setSubject] = useState('');
+  const [category, setCategory] = useState('');
   const [cost, setCost] = useState('');
-
-  const [scheduleItems, setScheduleItems] = useState([{ week_day: 0, from: '', to: '' }]);
-
-  function addNewScheduleItem(){
-    setScheduleItems([
-      ...scheduleItems,
-      {
-        week_day: 0,
-        from: '',
-        to: ''
-      }
-    ]);
-  }
 
   function handleCreateClass(e: FormEvent){
     e.preventDefault();
 
     console.log({
+      nameRest,
+      whatsapp,
       name,
       avatar,
-      whatsapp,
       bio,
-      subject,
+      category,
       cost,
-      scheduleItems
-    });
+    })
 
-    api.post('classes', {
+    api.post('prato', {
+      nameRest,
+      whatsapp,
       name,
       avatar,
-      whatsapp,
       bio,
-      subject,
+      category,
       cost: Number(cost),
-      schedule: scheduleItems
     }).then(() => {
       alert('Cadastro realizado com sucesso!');
 
@@ -67,19 +55,6 @@ export default function TeacherForm(){
     }).catch(() => {
       alert('Erro no cadastro!');
     });
-  }
-
-  function setScheduleItemValue(position: number, field: string, value: string) {
-    //dificil...
-    const updatedScheduleItems = scheduleItems.map((scheduleItem, index) => {
-      if(index === position){
-        return { ...scheduleItem, [field]: value };
-      }
-
-      return scheduleItem;
-    });
-
-    setScheduleItems(updatedScheduleItems);
   }
 
   return (
@@ -91,10 +66,10 @@ export default function TeacherForm(){
             <fieldset>
               <legend>Dados do restaurante</legend>
               <Input
-                name="name"
-                label="Nome"
-                value={name}
-                onChange={(e) => { setName(e.target.value) }}
+                name="nameRest"
+                label="Nome do restaurante"
+                value={nameRest}
+                onChange={(e) => { setNameRest(e.target.value) }}
               />
 
               <Input
@@ -109,10 +84,10 @@ export default function TeacherForm(){
               <legend>Dados do prato</legend>
 
               <Input
-                name="food"
+                name="name"
                 label="Nome do prato"
-                value={avatar}
-                onChange={(e) => { setAvatar(e.target.value) }}
+                value={name}
+                onChange={(e) => { setName(e.target.value) }}
               />
 
               
@@ -134,8 +109,8 @@ export default function TeacherForm(){
               <Select
                 name="category"
                 label="Categoria"
-                value={subject}
-                onChange={(e) => { setSubject(e.target.value) }}
+                value={category}
+                onChange={(e) => { setCategory(e.target.value) }}
                 options={[
                   { value: 'Pizza', label: 'Pizza' },
                   { value: 'Lanches', label: 'Lanches' },

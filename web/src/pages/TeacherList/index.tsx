@@ -3,7 +3,7 @@ import React, { useState, FormEvent } from 'react'
 import { Search } from 'react-feather';
 
 import PageHeader from '../../components/PageHeader';
-import TeacherItem, {Teacher} from '../../components/TeacherItem';
+import TeacherItem, {Prato} from '../../components/TeacherItem';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 
@@ -13,27 +13,25 @@ import './styles.css';
 
 
 export default function TeacherList(){
-  const [teachers, setTeachers] = useState([]);
+  const [prato, setPrato] = useState([]);
 
-  const [subject, setSubject] = useState('');
-  const [week_day, setWeekDay] = useState('');
-  const [time, setTime] = useState('');
+  const [category, setCategory] = useState('');
+  const [cost, setCost] = useState('');
 
   // useEffect(() => {}, []); função, quando eu quero disparar essa função?
 
   async function searchTeachers(e: FormEvent) {
     e.preventDefault();
 
-    const res = await api.get('classes', {
+    const res = await api.get('prato', {
       //query parms =>  parms
       params: {
-        subject,
-        week_day,
-        time,
+        category,
+        cost,
       }
     });
 
-    setTeachers(res.data);
+    setPrato(res.data);
   }
 
   return (
@@ -41,10 +39,10 @@ export default function TeacherList(){
      <PageHeader>
        <form id="search-teachers" onSubmit={searchTeachers}>
        <Select
-          name="subject"
-          label="Matéria"
-          value={subject}
-          onChange={e => {setSubject(e.target.value)}}
+          name="category"
+          label="Categoria"
+          value={category}
+          onChange={e => {setCategory(e.target.value)}}
           options={[
             { value: 'Pizza', label: 'Pizza' },
             { value: 'Lanches', label: 'Lanches' },
@@ -64,10 +62,9 @@ export default function TeacherList(){
        </form>
      </PageHeader>
       <main>
-        {teachers.map((teacher: Teacher) => {
-          return <TeacherItem key={teacher.id} teacher={teacher}/>;
+        {prato.map((prato: Prato) => {
+          return <TeacherItem key={prato.id} prato={prato}/>;
         })}
-
       </main>
 
     </div>
