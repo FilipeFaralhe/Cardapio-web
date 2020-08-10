@@ -27,7 +27,7 @@ export default function TeacherList(){
       //query parms =>  parms
       params: {
         category,
-        cost,
+        cost
       }
     });
 
@@ -55,6 +55,12 @@ export default function TeacherList(){
             { value: 'Italiana', label: 'Italiana' },
             { value: 'Chinesa', label: 'Chinesa' }
           ]}
+        />
+        <Input
+            name="price"
+            label="Preço"
+            value={cost}
+            onChange={(e) => { setCost(e.target.value) }}
         />
           <button type="submit">
             <Search />

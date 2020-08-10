@@ -10,6 +10,7 @@ export interface Prato {
   bio: string;
   cost: number;
   id: number;
+  nameRest: string,
   name: string;
   category: string;
   whatsapp: string;
@@ -28,7 +29,8 @@ interface PratoItemProps {
         <img src={prato.avatar} alt={prato.name}/>
         <div>
           <strong>{prato.name}</strong>
-          <span>{prato.category}</span>
+          <span>Empresa: {prato.nameRest}</span>
+          <span>Categoria: {prato.category}</span>
         </div>
       </header>
 
@@ -37,8 +39,8 @@ interface PratoItemProps {
       </p>
 
       <footer>
-        <p>Preço/hora
-        <strong>R$ {prato.cost}</strong>
+        <p>Preço
+        <strong>{ prato.cost.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }</strong>
         </p>
         <a target="_blank" href={`https://wa.me/${prato.whatsapp}?text=Olá! Gostaria de agendar o seguinte item ${prato.name}!`}>
           <img src={whatsappIcon} alt="WhatsApp"/>

@@ -8,7 +8,8 @@
 }
 
 #search-teachers label {
-  color: var(--color-text-in-primary);
+  color: white;
+  font-size: 2.5rem;
 }
 
 #search-teachers button {
@@ -44,7 +45,7 @@
 
   #search-teachers {
     display: grid;
-    grid-template-columns: 600px 200px;
+    grid-template-columns: 1fr 1fr 1fr;
     column-gap: 16px;
     position: absolute;
     bottom: -28px;

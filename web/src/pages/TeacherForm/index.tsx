@@ -40,7 +40,7 @@ export default function TeacherForm(){
       cost,
     })
 
-    api.post('prato', {
+    api.post('add', {
       nameRest,
       whatsapp,
       name,
@@ -51,7 +51,7 @@ export default function TeacherForm(){
     }).then(() => {
       alert('Cadastro realizado com sucesso!');
 
-      history.push('/');
+      history.push('/add');
     }).catch(() => {
       alert('Erro no cadastro!');
     });

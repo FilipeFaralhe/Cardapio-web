@@ -10,7 +10,7 @@ const listItemController = new ListItemController();
 
 routes.get('/listTotal', listItemController.index);
 
-routes.get('/form', classesController.index);
-routes.post('/form', classesController.create);
+routes.get('/prato', classesController.index);
+routes.post('/add', classesController.create);
 
 export default routes;
